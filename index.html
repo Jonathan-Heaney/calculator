@@ -4,7 +4,43 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+    <title>Calculator</title>
   </head>
-  <body></body>
+  <body>
+    <div class="container">
+      <div class="display"></div>
+      <div class="edit">
+        <button class="clear">Clear</button>
+        <button class="backspace">Backspace</button>
+      </div>
+      <div class="main-buttons">
+        <div class="first row">
+          <button class="number-btn">7</button>
+          <button class="number-btn">8</button>
+          <button class="number-btn">9</button>
+          <button class="operator-btn" id="divide">÷</button>
+        </div>
+        <div class="second row">
+          <button class="number-btn">4</button>
+          <button class="number-btn">5</button>
+          <button class="number-btn">6</button>
+          <button class="operator-btn" id="multiply">x</button>
+        </div>
+        <div class="third row">
+          <button class="number-btn">1</button>
+          <button class="number-btn">2</button>
+          <button class="number-btn">3</button>
+          <button class="operator-btn" id="subtract">-</button>
+        </div>
+        <div class="fourth row">
+          <button class="number-btn">.</button>
+          <button class="number-btn">0</button>
+          <button class="operator-btn" id="equals">=</button>
+          <button class="operator-btn" id="add">+</button>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>
