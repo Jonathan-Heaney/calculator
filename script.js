@@ -29,13 +29,13 @@ function operate(op, a, b) {
 }
 
 const display = document.querySelector('.display');
+const displayText = document.querySelector('.display-text');
 const numberButtons = document.querySelectorAll('.number-btn');
 const operatorButtons = document.querySelectorAll('.operator-btn');
 
 for (let i = 0; i < numberButtons.length; i++) {
   numberButtons[i].addEventListener('click', function (e) {
     let displayValue = e.target.textContent;
-    console.log(displayValue);
-    display.textContent = `${displayValue}`;
+    displayText.textContent += `${displayValue}`;
   });
 }

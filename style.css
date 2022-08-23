@@ -53,3 +53,7 @@ button {
   outline: none;
   border: 2px solid black;
 }
+
+.operator-btn {
+  background-color: lavender;
+}
