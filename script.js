@@ -43,6 +43,7 @@ const backspaceButton = document.querySelector('#backspace');
 const mainButtons = document.querySelectorAll('.main-btn');
 
 clearButton.addEventListener('click', clear);
+backspaceButton.addEventListener('click', backspace);
 
 let a = '';
 let b = '';
@@ -98,6 +99,7 @@ for (let i = 0; i < mainButtons.length; i++) {
           clear();
         } else {
           answer = +answer.toFixed(10);
+          result.textContent = answer;
           console.log(operate(op, a, b));
           displayText.textContent = `${a} ${op} ${b}`;
           result.textContent = answer;
@@ -113,4 +115,18 @@ function clear() {
   b = '';
   result.textContent = '';
   displayText.textContent = '';
+}
+
+function backspace() {
+  if (a && !b) {
+    let text = result.textContent;
+    let newText = text.replace(/\d$/, '');
+    result.textContent = newText;
+    a = newText;
+  } else if (a && b) {
+    let text = result.textContent;
+    let newText = text.replace(/\d$/, '');
+    result.textContent = newText;
+    b = newText;
+  }
 }
