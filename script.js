@@ -59,7 +59,11 @@ for (let i = 0; i < mainButtons.length; i++) {
       op = e.target.textContent;
       displayText.textContent = `${a} ${op}`;
       console.log(`op = ${op}`);
-    } else if (a && op && e.target.classList.contains('number-btn')) {
+    } else if (
+      (a || a === 0) &&
+      op &&
+      e.target.classList.contains('number-btn')
+    ) {
       b += e.target.textContent;
       result.textContent = b;
       console.log(`b = ${b}`);
