@@ -59,11 +59,14 @@ for (let i = 0; i < mainButtons.length; i++) {
       backspaceButton.disabled = false;
       if (result.textContent.includes('.')) {
         decimalButton.disabled = true;
-      }
+      } else decimalButton.disabled = false;
     } else if (!op && e.target.classList.contains('operator-btn')) {
       op = e.target.textContent;
       displayText.textContent = `${a} ${op}`;
       decimalButton.disabled = false;
+      for (let i = 0; i < numberButtons.length; i++) {
+        numberButtons[i].disabled = false;
+      }
     } else if (
       (a || a === 0) &&
       op &&
@@ -74,13 +77,19 @@ for (let i = 0; i < mainButtons.length; i++) {
       backspaceButton.disabled = false;
       if (result.textContent.includes('.')) {
         decimalButton.disabled = true;
-      }
+      } else decimalButton.disabled = false;
     } else if (op && e.target.classList.contains('operator-btn') && !b) {
       op = e.target.textContent;
       decimalButton.disabled = false;
+      for (let i = 0; i < numberButtons.length; i++) {
+        numberButtons[i].disabled = false;
+      }
     } else if (op && e.target.classList.contains('operator-btn')) {
       a = Number(a);
       b = Number(b);
+      for (let i = 0; i < numberButtons.length; i++) {
+        numberButtons[i].disabled = false;
+      }
       answer = operate(op, a, b);
       if (answer === 'No') {
         alert('Nice try, dum dum');
@@ -107,8 +116,11 @@ for (let i = 0; i < mainButtons.length; i++) {
           result.textContent = answer;
           displayText.textContent = `${a} ${op} ${b}`;
           result.textContent = answer;
-          decimalButton.disabled = false;
+          decimalButton.disabled = true;
           backspaceButton.disabled = true;
+          for (let i = 0; i < numberButtons.length; i++) {
+            numberButtons[i].disabled = true;
+          }
         }
       }
     }
@@ -121,6 +133,10 @@ function clear() {
   b = '';
   result.textContent = '';
   displayText.textContent = '';
+  decimalButton.disabled = false;
+  for (let i = 0; i < numberButtons.length; i++) {
+    numberButtons[i].disabled = false;
+  }
 }
 
 function backspace() {
