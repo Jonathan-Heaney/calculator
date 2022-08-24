@@ -79,6 +79,7 @@ for (let i = 0; i < mainButtons.length; i++) {
       b = Number(b);
       console.log(operate(op, a, b));
       answer = operate(op, a, b);
+      answer = +answer.toFixed(10);
       result.textContent = answer;
       op = e.target.textContent;
       a = answer;
@@ -92,6 +93,7 @@ for (let i = 0; i < mainButtons.length; i++) {
         a = Number(a);
         b = Number(b);
         answer = operate(op, a, b);
+        answer = +answer.toFixed(10);
         console.log(operate(op, a, b));
         displayText.textContent = `${a} ${op} ${b}`;
         result.textContent = answer;
@@ -100,7 +102,7 @@ for (let i = 0; i < mainButtons.length; i++) {
   });
 }
 
-function clear(e) {
+function clear() {
   a = '';
   op = '';
   b = '';
