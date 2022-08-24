@@ -34,7 +34,9 @@ const numberButtons = document.querySelectorAll('.number-btn');
 const operatorButtons = document.querySelectorAll('.operator-btn');
 const buttons = document.querySelectorAll('button');
 const result = document.querySelector('#result');
-const clearButton = document.querySelector('#clear');
+const clearButton = document.querySelector('.clear');
+const backspaceButton = document.querySelector('.backspace');
+const mainButtons = document.querySelectorAll('.main-btn');
 
 for (let i = 0; i < operatorButtons.length; i++) {
   operatorButtons[i].addEventListener('click', showDisplay);
@@ -56,8 +58,8 @@ let b = '';
 let op = '';
 let answer;
 
-for (let i = 0; i < buttons.length; i++) {
-  buttons[i].addEventListener('click', function (e) {
+for (let i = 0; i < mainButtons.length; i++) {
+  mainButtons[i].addEventListener('click', function (e) {
     if (e.target.classList.contains('number-btn') && !op) {
       a += e.target.textContent;
       console.log(`a = ${a}`);
@@ -93,7 +95,7 @@ for (let i = 0; i < buttons.length; i++) {
   });
 }
 
-function clear() {
+function clear(e) {
   a = '';
   op = '';
   b = '';

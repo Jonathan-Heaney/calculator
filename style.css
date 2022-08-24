@@ -17,22 +17,24 @@ body {
 .container {
   background-color: aliceblue;
   width: 350px;
-  height: 500px;
+  height: 460px;
   display: flex;
   flex-direction: column;
-  gap: 2em;
+  gap: 1rem;
+  border: 2px solid black;
+  border-radius: 12px;
 }
 
 .display {
   background-color: white;
   border: 1px solid black;
-  height: 10%;
-  margin: 1em;
+  height: 15%;
+  margin: 1em 1em 0 1em;
+  padding: 0.5em;
 }
 
 .edit {
   display: flex;
-  gap: 1.5em;
   justify-content: space-evenly;
 }
 
@@ -44,7 +46,23 @@ body {
 .main-buttons {
   display: flex;
   flex-direction: column;
-  gap: 1.5em;
+  gap: 1.5rem;
+}
+
+.edit button {
+  width: 43%;
+}
+
+.clear {
+  background-color: #ffcccb;
+}
+
+.clear:hover {
+  background-color: #c5b4e3;
+}
+
+.backspace {
+  background-color: #c5b4e3;
 }
 
 button {
@@ -54,6 +72,35 @@ button {
   border: 2px solid black;
 }
 
+.number-btn,
+#equals {
+  background-color: #fff;
+}
+
+.number-btn:hover,
+#equals:hover {
+  background-color: #eee;
+}
+
+.number-btn:active,
+#equals:active {
+  background-color: #ccc;
+}
+
 .operator-btn {
-  background-color: lavender;
+  background-color: #fcd299;
+}
+
+.operator-btn:hover {
+  background-color: #fcb266;
+}
+
+.operator-btn:active {
+  background-color: #fc9244;
+}
+
+#result {
+  margin-top: 0.2em;
+  font-size: 1.8rem;
+  font-weight: bold;
 }
