@@ -59,11 +59,9 @@ for (let i = 0; i < mainButtons.length; i++) {
       if (result.textContent.includes('.')) {
         decimalButton.disabled = true;
       }
-      console.log(`a = ${a}`);
     } else if (!op && e.target.classList.contains('operator-btn')) {
       op = e.target.textContent;
       displayText.textContent = `${a} ${op}`;
-      console.log(`op = ${op}`);
       decimalButton.disabled = false;
     } else if (
       (a || a === 0) &&
@@ -72,7 +70,6 @@ for (let i = 0; i < mainButtons.length; i++) {
     ) {
       b += e.target.textContent;
       result.textContent = b;
-      console.log(`b = ${b}`);
       if (result.textContent.includes('.')) {
         decimalButton.disabled = true;
       }
@@ -82,7 +79,6 @@ for (let i = 0; i < mainButtons.length; i++) {
     } else if (op && e.target.classList.contains('operator-btn')) {
       a = Number(a);
       b = Number(b);
-      console.log(operate(op, a, b));
       answer = operate(op, a, b);
       if (answer === 'No') {
         alert('Nice try, dum dum');
@@ -95,9 +91,6 @@ for (let i = 0; i < mainButtons.length; i++) {
         b = '';
         displayText.textContent = `${a} ${op}`;
         decimalButton.disabled = false;
-        console.log(`a = ${a}`);
-        console.log(`b = ${b}`);
-        console.log(`answer = ${answer}`);
       }
     } else if ((e.target.id = 'equals')) {
       if (a && b && op) {
@@ -110,7 +103,6 @@ for (let i = 0; i < mainButtons.length; i++) {
         } else {
           answer = +answer.toFixed(10);
           result.textContent = answer;
-          console.log(operate(op, a, b));
           displayText.textContent = `${a} ${op} ${b}`;
           result.textContent = answer;
           decimalButton.disabled = false;
@@ -140,10 +132,4 @@ function backspace() {
     result.textContent = newText;
     b = newText;
   }
-}
-
-let decimal = '.';
-if (result.textContent.includes('.')) {
-  console.log('check');
-  decimalButton.textContent = '';
 }
