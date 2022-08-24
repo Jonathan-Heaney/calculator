@@ -24,7 +24,11 @@ function operate(op, a, b) {
   } else if (op === 'x') {
     return multiply(a, b);
   } else if (op === '÷') {
-    return divide(a, b);
+    if (b === 0) {
+      return 'No';
+    } else {
+      return divide(a, b);
+    }
   }
 }
 
@@ -37,19 +41,6 @@ const result = document.querySelector('#result');
 const clearButton = document.querySelector('#clear');
 const backspaceButton = document.querySelector('#backspace');
 const mainButtons = document.querySelectorAll('.main-btn');
-
-// for (let i = 0; i < operatorButtons.length; i++) {
-//   operatorButtons[i].addEventListener('click', showDisplay);
-// }
-
-// for (let i = 0; i < numberButtons.length; i++) {
-//   numberButtons[i].addEventListener('click', showDisplay);
-// }
-
-// function showDisplay(e) {
-//   let displayValue = e.target.textContent;
-//   displayText.textContent += `${displayValue}`;
-// }
 
 clearButton.addEventListener('click', clear);
 
@@ -79,24 +70,34 @@ for (let i = 0; i < mainButtons.length; i++) {
       b = Number(b);
       console.log(operate(op, a, b));
       answer = operate(op, a, b);
-      answer = +answer.toFixed(10);
-      result.textContent = answer;
-      op = e.target.textContent;
-      a = answer;
-      b = '';
-      displayText.textContent = `${a} ${op}`;
-      console.log(`a = ${a}`);
-      console.log(`b = ${b}`);
-      console.log(`answer = ${answer}`);
+      if (answer === 'No') {
+        alert('Nice try, dum dum');
+        clear();
+      } else {
+        answer = +answer.toFixed(10);
+        result.textContent = answer;
+        op = e.target.textContent;
+        a = answer;
+        b = '';
+        displayText.textContent = `${a} ${op}`;
+        console.log(`a = ${a}`);
+        console.log(`b = ${b}`);
+        console.log(`answer = ${answer}`);
+      }
     } else if ((e.target.id = 'equals')) {
       if (a && b && op) {
         a = Number(a);
         b = Number(b);
         answer = operate(op, a, b);
-        answer = +answer.toFixed(10);
-        console.log(operate(op, a, b));
-        displayText.textContent = `${a} ${op} ${b}`;
-        result.textContent = answer;
+        if (answer === 'No') {
+          alert('Nice try, dum dum');
+          clear();
+        } else {
+          answer = +answer.toFixed(10);
+          console.log(operate(op, a, b));
+          displayText.textContent = `${a} ${op} ${b}`;
+          result.textContent = answer;
+        }
       }
     }
   });
