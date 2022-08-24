@@ -34,22 +34,22 @@ const numberButtons = document.querySelectorAll('.number-btn');
 const operatorButtons = document.querySelectorAll('.operator-btn');
 const buttons = document.querySelectorAll('button');
 const result = document.querySelector('#result');
-const clearButton = document.querySelector('.clear');
-const backspaceButton = document.querySelector('.backspace');
+const clearButton = document.querySelector('#clear');
+const backspaceButton = document.querySelector('#backspace');
 const mainButtons = document.querySelectorAll('.main-btn');
 
-for (let i = 0; i < operatorButtons.length; i++) {
-  operatorButtons[i].addEventListener('click', showDisplay);
-}
+// for (let i = 0; i < operatorButtons.length; i++) {
+//   operatorButtons[i].addEventListener('click', showDisplay);
+// }
 
-for (let i = 0; i < numberButtons.length; i++) {
-  numberButtons[i].addEventListener('click', showDisplay);
-}
+// for (let i = 0; i < numberButtons.length; i++) {
+//   numberButtons[i].addEventListener('click', showDisplay);
+// }
 
-function showDisplay(e) {
-  let displayValue = e.target.textContent;
-  displayText.textContent += `${displayValue}`;
-}
+// function showDisplay(e) {
+//   let displayValue = e.target.textContent;
+//   displayText.textContent += `${displayValue}`;
+// }
 
 clearButton.addEventListener('click', clear);
 
@@ -62,12 +62,15 @@ for (let i = 0; i < mainButtons.length; i++) {
   mainButtons[i].addEventListener('click', function (e) {
     if (e.target.classList.contains('number-btn') && !op) {
       a += e.target.textContent;
+      result.textContent = a;
       console.log(`a = ${a}`);
     } else if (!op && e.target.classList.contains('operator-btn')) {
       op = e.target.textContent;
+      displayText.textContent = `${a} ${op}`;
       console.log(`op = ${op}`);
     } else if (a && op && e.target.classList.contains('number-btn')) {
       b += e.target.textContent;
+      result.textContent = b;
       console.log(`b = ${b}`);
     } else if (op && e.target.classList.contains('operator-btn') && !b) {
       op = e.target.textContent;
@@ -80,6 +83,7 @@ for (let i = 0; i < mainButtons.length; i++) {
       op = e.target.textContent;
       a = answer;
       b = '';
+      displayText.textContent = `${a} ${op}`;
       console.log(`a = ${a}`);
       console.log(`b = ${b}`);
       console.log(`answer = ${answer}`);
@@ -89,6 +93,7 @@ for (let i = 0; i < mainButtons.length; i++) {
         b = Number(b);
         answer = operate(op, a, b);
         console.log(operate(op, a, b));
+        displayText.textContent = `${a} ${op} ${b}`;
         result.textContent = answer;
       }
     }
