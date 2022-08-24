@@ -56,6 +56,7 @@ for (let i = 0; i < mainButtons.length; i++) {
     if (e.target.classList.contains('number-btn') && !op) {
       a += e.target.textContent;
       result.textContent = a;
+      backspaceButton.disabled = false;
       if (result.textContent.includes('.')) {
         decimalButton.disabled = true;
       }
@@ -70,6 +71,7 @@ for (let i = 0; i < mainButtons.length; i++) {
     ) {
       b += e.target.textContent;
       result.textContent = b;
+      backspaceButton.disabled = false;
       if (result.textContent.includes('.')) {
         decimalButton.disabled = true;
       }
@@ -106,6 +108,7 @@ for (let i = 0; i < mainButtons.length; i++) {
           displayText.textContent = `${a} ${op} ${b}`;
           result.textContent = answer;
           decimalButton.disabled = false;
+          backspaceButton.disabled = true;
         }
       }
     }
