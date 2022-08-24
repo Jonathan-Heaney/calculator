@@ -33,17 +33,28 @@ const displayText = document.querySelector('.display-text');
 const numberButtons = document.querySelectorAll('.number-btn');
 const operatorButtons = document.querySelectorAll('.operator-btn');
 const buttons = document.querySelectorAll('button');
+const result = document.querySelector('#result');
+const clearButton = document.querySelector('#clear');
+
+for (let i = 0; i < operatorButtons.length; i++) {
+  operatorButtons[i].addEventListener('click', showDisplay);
+}
 
 for (let i = 0; i < numberButtons.length; i++) {
-  numberButtons[i].addEventListener('click', function (e) {
-    let displayValue = e.target.textContent;
-    displayText.textContent += `${displayValue}`;
-  });
+  numberButtons[i].addEventListener('click', showDisplay);
 }
+
+function showDisplay(e) {
+  let displayValue = e.target.textContent;
+  displayText.textContent += `${displayValue}`;
+}
+
+clearButton.addEventListener('click', clear);
 
 let a = '';
 let b = '';
 let op = '';
+let answer;
 
 for (let i = 0; i < buttons.length; i++) {
   buttons[i].addEventListener('click', function (e) {
@@ -56,10 +67,36 @@ for (let i = 0; i < buttons.length; i++) {
     } else if (a && op && e.target.classList.contains('number-btn')) {
       b += e.target.textContent;
       console.log(`b = ${b}`);
+    } else if (op && e.target.classList.contains('operator-btn') && !b) {
+      op = e.target.textContent;
     } else if (op && e.target.classList.contains('operator-btn')) {
       a = Number(a);
       b = Number(b);
       console.log(operate(op, a, b));
+      answer = operate(op, a, b);
+      result.textContent = answer;
+      op = e.target.textContent;
+      a = answer;
+      b = '';
+      console.log(`a = ${a}`);
+      console.log(`b = ${b}`);
+      console.log(`answer = ${answer}`);
+    } else if ((e.target.id = 'equals')) {
+      if (a && b && op) {
+        a = Number(a);
+        b = Number(b);
+        answer = operate(op, a, b);
+        console.log(operate(op, a, b));
+        result.textContent = answer;
+      }
     }
   });
+}
+
+function clear() {
+  a = '';
+  op = '';
+  b = '';
+  result.textContent = '';
+  displayText.textContent = '';
 }
