@@ -41,6 +41,7 @@ const result = document.querySelector('#result');
 const clearButton = document.querySelector('#clear');
 const backspaceButton = document.querySelector('#backspace');
 const mainButtons = document.querySelectorAll('.main-btn');
+const decimalButton = document.querySelector('#decimal');
 
 clearButton.addEventListener('click', clear);
 backspaceButton.addEventListener('click', backspace);
@@ -55,11 +56,15 @@ for (let i = 0; i < mainButtons.length; i++) {
     if (e.target.classList.contains('number-btn') && !op) {
       a += e.target.textContent;
       result.textContent = a;
+      if (result.textContent.includes('.')) {
+        decimalButton.disabled = true;
+      }
       console.log(`a = ${a}`);
     } else if (!op && e.target.classList.contains('operator-btn')) {
       op = e.target.textContent;
       displayText.textContent = `${a} ${op}`;
       console.log(`op = ${op}`);
+      decimalButton.disabled = false;
     } else if (
       (a || a === 0) &&
       op &&
@@ -68,8 +73,12 @@ for (let i = 0; i < mainButtons.length; i++) {
       b += e.target.textContent;
       result.textContent = b;
       console.log(`b = ${b}`);
+      if (result.textContent.includes('.')) {
+        decimalButton.disabled = true;
+      }
     } else if (op && e.target.classList.contains('operator-btn') && !b) {
       op = e.target.textContent;
+      decimalButton.disabled = false;
     } else if (op && e.target.classList.contains('operator-btn')) {
       a = Number(a);
       b = Number(b);
@@ -85,6 +94,7 @@ for (let i = 0; i < mainButtons.length; i++) {
         a = answer;
         b = '';
         displayText.textContent = `${a} ${op}`;
+        decimalButton.disabled = false;
         console.log(`a = ${a}`);
         console.log(`b = ${b}`);
         console.log(`answer = ${answer}`);
@@ -103,6 +113,7 @@ for (let i = 0; i < mainButtons.length; i++) {
           console.log(operate(op, a, b));
           displayText.textContent = `${a} ${op} ${b}`;
           result.textContent = answer;
+          decimalButton.disabled = false;
         }
       }
     }
@@ -120,13 +131,19 @@ function clear() {
 function backspace() {
   if (a && !b) {
     let text = result.textContent;
-    let newText = text.replace(/\d$/, '');
+    let newText = text.slice(0, -1);
     result.textContent = newText;
     a = newText;
   } else if (a && b) {
     let text = result.textContent;
-    let newText = text.replace(/\d$/, '');
+    let newText = text.slice(0, -1);
     result.textContent = newText;
     b = newText;
   }
+}
+
+let decimal = '.';
+if (result.textContent.includes('.')) {
+  console.log('check');
+  decimalButton.textContent = '';
 }
