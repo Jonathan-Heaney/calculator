@@ -43,9 +43,6 @@ const backspaceButton = document.querySelector('#backspace');
 const mainButtons = document.querySelectorAll('.main-btn');
 const decimalButton = document.querySelector('#decimal');
 
-clearButton.addEventListener('click', clear);
-backspaceButton.addEventListener('click', backspace);
-
 let a = '';
 let b = '';
 let op = '';
@@ -57,57 +54,28 @@ for (let i = 0; i < mainButtons.length; i++) {
       firstOperand(e);
     } else if (!op && e.target.classList.contains('operator-btn')) {
       firstOperator(e);
-      disableOps();
     } else if (
       (a || a === 0) &&
       op &&
       e.target.classList.contains('number-btn')
     ) {
       secondOperand(e);
-      enableOps();
-    } else if (op && e.target.classList.contains('operator-btn') && !b) {
-      op = e.target.textContent;
-      console.log('Here');
-      enableDec();
-      enableNum();
     } else if (op && e.target.classList.contains('operator-btn')) {
-      a = Number(a);
-      b = Number(b);
+      operateHelper(e);
       enableNum();
       disableOps();
-      answer = operate(op, a, b);
       if (answer === 'No') {
-        alert('Nice try, dum dum');
-        clear();
+        alertDivideZero();
       } else {
-        answer = +answer.toFixed(5);
-        result.textContent = answer;
-        op = e.target.textContent;
-        a = answer;
-        b = '';
-        displayText.textContent = `${a} ${op}`;
-        enableDec();
-        result.textContent = '';
-        disableBackspace();
+        showResultOperator(e);
       }
     } else if ((e.target.id = 'equals')) {
       if (a && b && op) {
-        a = Number(a);
-        b = Number(b);
-        answer = operate(op, a, b);
+        operateHelper(e);
         if (answer === 'No') {
-          alert('Nice try, dum dum');
-          clear();
+          alertDivideZero();
         } else {
-          answer = +answer.toFixed(5);
-          result.textContent = answer;
-          displayText.textContent = `${a} ${op} ${b}`;
-          result.textContent = answer;
-          disableDec();
-          disableBackspace();
-          disableNum();
-          enableOps();
-          console.log(a, b, op, answer);
+          showResultEquals(e);
         }
       }
     }
@@ -129,15 +97,51 @@ function firstOperator(e) {
   disableDec();
   result.textContent = '';
   enableNum();
+  disableOps();
 }
 
 function secondOperand(e) {
   b += e.target.textContent;
   result.textContent = b;
   enableBackspace();
+  enableOps();
   if (result.textContent.includes('.')) {
     disableDec();
   } else enableDec();
+}
+
+function operateHelper(e) {
+  a = Number(a);
+  b = Number(b);
+  answer = operate(op, a, b);
+}
+
+function showResultOperator(e) {
+  answer = +answer.toFixed(5);
+  result.textContent = answer;
+  op = e.target.textContent;
+  a = answer;
+  b = '';
+  displayText.textContent = `${a} ${op}`;
+  enableDec();
+  result.textContent = '';
+  disableBackspace();
+}
+
+function showResultEquals(e) {
+  answer = +answer.toFixed(5);
+  result.textContent = answer;
+  displayText.textContent = `${a} ${op} ${b}`;
+  result.textContent = answer;
+  disableDec();
+  disableBackspace();
+  disableNum();
+  enableOps();
+}
+
+function alertDivideZero() {
+  alert('Nice try, dum dum');
+  clear();
 }
 
 function clear() {
@@ -204,3 +208,6 @@ function enableOps() {
     operatorButtons[i].disabled = false;
   }
 }
+
+clearButton.addEventListener('click', clear);
+backspaceButton.addEventListener('click', backspace);
