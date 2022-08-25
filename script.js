@@ -83,6 +83,7 @@ for (let i = 0; i < mainButtons.length; i++) {
 }
 
 function firstOperand(e) {
+  enableOps();
   a += e.target.textContent;
   result.textContent = a;
   enableBackspace();
@@ -152,7 +153,7 @@ function clear() {
   displayText.textContent = '';
   enableDec();
   enableNum();
-  enableOps();
+  disableOps();
 }
 
 function backspace() {
