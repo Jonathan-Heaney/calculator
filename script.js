@@ -54,29 +54,15 @@ let answer;
 for (let i = 0; i < mainButtons.length; i++) {
   mainButtons[i].addEventListener('click', function (e) {
     if (e.target.classList.contains('number-btn') && !op) {
-      a += e.target.textContent;
-      result.textContent = a;
-      enableBackspace();
-      if (result.textContent.includes('.')) {
-        disableDec();
-      } else enableDec();
+      firstOperand(e);
     } else if (!op && e.target.classList.contains('operator-btn')) {
-      op = e.target.textContent;
-      displayText.textContent = `${a} ${op}`;
-      disableDec();
-      result.textContent = '';
-      enableNum();
+      firstOperator(e);
     } else if (
       (a || a === 0) &&
       op &&
       e.target.classList.contains('number-btn')
     ) {
-      b += e.target.textContent;
-      result.textContent = b;
-      enableBackspace();
-      if (result.textContent.includes('.')) {
-        disableDec();
-      } else enableDec();
+      secondOperand(e);
     } else if (op && e.target.classList.contains('operator-btn') && !b) {
       op = e.target.textContent;
       enableDec();
@@ -119,6 +105,32 @@ for (let i = 0; i < mainButtons.length; i++) {
       }
     }
   });
+}
+
+function firstOperand(e) {
+  a += e.target.textContent;
+  result.textContent = a;
+  enableBackspace();
+  if (result.textContent.includes('.')) {
+    disableDec();
+  } else enableDec();
+}
+
+function firstOperator(e) {
+  op = e.target.textContent;
+  displayText.textContent = `${a} ${op}`;
+  disableDec();
+  result.textContent = '';
+  enableNum();
+}
+
+function secondOperand(e) {
+  b += e.target.textContent;
+  result.textContent = b;
+  enableBackspace();
+  if (result.textContent.includes('.')) {
+    disableDec();
+  } else enableDec();
 }
 
 function clear() {
