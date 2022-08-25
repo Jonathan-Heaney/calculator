@@ -57,20 +57,24 @@ for (let i = 0; i < mainButtons.length; i++) {
       firstOperand(e);
     } else if (!op && e.target.classList.contains('operator-btn')) {
       firstOperator(e);
+      disableOps();
     } else if (
       (a || a === 0) &&
       op &&
       e.target.classList.contains('number-btn')
     ) {
       secondOperand(e);
+      enableOps();
     } else if (op && e.target.classList.contains('operator-btn') && !b) {
       op = e.target.textContent;
+      console.log('Here');
       enableDec();
       enableNum();
     } else if (op && e.target.classList.contains('operator-btn')) {
       a = Number(a);
       b = Number(b);
       enableNum();
+      disableOps();
       answer = operate(op, a, b);
       if (answer === 'No') {
         alert('Nice try, dum dum');
@@ -83,6 +87,8 @@ for (let i = 0; i < mainButtons.length; i++) {
         b = '';
         displayText.textContent = `${a} ${op}`;
         enableDec();
+        result.textContent = '';
+        disableBackspace();
       }
     } else if ((e.target.id = 'equals')) {
       if (a && b && op) {
@@ -100,6 +106,7 @@ for (let i = 0; i < mainButtons.length; i++) {
           disableDec();
           disableBackspace();
           disableNum();
+          enableOps();
           console.log(a, b, op, answer);
         }
       }
@@ -141,6 +148,7 @@ function clear() {
   displayText.textContent = '';
   enableDec();
   enableNum();
+  enableOps();
 }
 
 function backspace() {
@@ -182,5 +190,17 @@ function disableNum() {
 function enableNum() {
   for (let i = 0; i < numberButtons.length; i++) {
     numberButtons[i].disabled = false;
+  }
+}
+
+function disableOps() {
+  for (let i = 0; i < operatorButtons.length; i++) {
+    operatorButtons[i].disabled = true;
+  }
+}
+
+function enableOps() {
+  for (let i = 0; i < operatorButtons.length; i++) {
+    operatorButtons[i].disabled = false;
   }
 }
