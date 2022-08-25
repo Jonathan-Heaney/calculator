@@ -53,17 +53,28 @@ let answer;
 
 for (let i = 0; i < mainButtons.length; i++) {
   mainButtons[i].addEventListener('click', function (e) {
+    // if (result.textContent.length >= 8) {
+    //   for (let i = 0; i < numberButtons.length; i++) {
+    //     numberButtons[i].disabled = true;
+    //   }
+    // }
     if (e.target.classList.contains('number-btn') && !op) {
-      a += e.target.textContent;
-      result.textContent = a;
-      backspaceButton.disabled = false;
-      if (result.textContent.includes('.')) {
-        decimalButton.disabled = true;
-      } else decimalButton.disabled = false;
+      if (result.textContent.length >= 9) {
+        a = a;
+        console.log(a);
+      } else {
+        a += e.target.textContent;
+        result.textContent = a;
+        backspaceButton.disabled = false;
+        if (result.textContent.includes('.')) {
+          decimalButton.disabled = true;
+        } else decimalButton.disabled = false;
+      }
     } else if (!op && e.target.classList.contains('operator-btn')) {
       op = e.target.textContent;
       displayText.textContent = `${a} ${op}`;
       decimalButton.disabled = false;
+      result.textContent = '';
       for (let i = 0; i < numberButtons.length; i++) {
         numberButtons[i].disabled = false;
       }
@@ -72,12 +83,17 @@ for (let i = 0; i < mainButtons.length; i++) {
       op &&
       e.target.classList.contains('number-btn')
     ) {
-      b += e.target.textContent;
-      result.textContent = b;
-      backspaceButton.disabled = false;
-      if (result.textContent.includes('.')) {
-        decimalButton.disabled = true;
-      } else decimalButton.disabled = false;
+      if (result.textContent.length >= 9) {
+        b = b;
+        console.log(b);
+      } else {
+        b += e.target.textContent;
+        result.textContent = b;
+        backspaceButton.disabled = false;
+        if (result.textContent.includes('.')) {
+          decimalButton.disabled = true;
+        } else decimalButton.disabled = false;
+      }
     } else if (op && e.target.classList.contains('operator-btn') && !b) {
       op = e.target.textContent;
       decimalButton.disabled = false;
@@ -151,4 +167,8 @@ function backspace() {
     result.textContent = newText;
     b = newText;
   }
+}
+
+function expo(x, f) {
+  return Number.parseFloat(x).toExponential(f);
 }
