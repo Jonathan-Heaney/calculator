@@ -54,16 +54,12 @@ let answer;
 for (let i = 0; i < mainButtons.length; i++) {
   mainButtons[i].addEventListener('click', function (e) {
     if (e.target.classList.contains('number-btn') && !op) {
-      if (result.textContent.length >= 9) {
-        a = a;
-      } else {
-        a += e.target.textContent;
-        result.textContent = a;
-        enableBackspace();
-        if (result.textContent.includes('.')) {
-          disableDec();
-        } else enableDec();
-      }
+      a += e.target.textContent;
+      result.textContent = a;
+      enableBackspace();
+      if (result.textContent.includes('.')) {
+        disableDec();
+      } else enableDec();
     } else if (!op && e.target.classList.contains('operator-btn')) {
       op = e.target.textContent;
       displayText.textContent = `${a} ${op}`;
@@ -75,17 +71,12 @@ for (let i = 0; i < mainButtons.length; i++) {
       op &&
       e.target.classList.contains('number-btn')
     ) {
-      if (result.textContent.length >= 9) {
-        b = b;
-        console.log(b);
-      } else {
-        b += e.target.textContent;
-        result.textContent = b;
-        enableBackspace();
-        if (result.textContent.includes('.')) {
-          disableDec();
-        } else enableDec();
-      }
+      b += e.target.textContent;
+      result.textContent = b;
+      enableBackspace();
+      if (result.textContent.includes('.')) {
+        disableDec();
+      } else enableDec();
     } else if (op && e.target.classList.contains('operator-btn') && !b) {
       op = e.target.textContent;
       enableDec();
@@ -99,10 +90,7 @@ for (let i = 0; i < mainButtons.length; i++) {
         alert('Nice try, dum dum');
         clear();
       } else {
-        answer = +answer.toFixed(10);
-        if (result.textContent.length > 10) {
-          answer = expo(answer, 2);
-        }
+        answer = +answer.toFixed(5);
         result.textContent = answer;
         op = e.target.textContent;
         a = answer;
@@ -119,16 +107,14 @@ for (let i = 0; i < mainButtons.length; i++) {
           alert('Nice try, dum dum');
           clear();
         } else {
-          answer = +answer.toFixed(10);
+          answer = +answer.toFixed(5);
           result.textContent = answer;
-          if (result.textContent.length > 10) {
-            answer = expo(answer, 2);
-          }
           displayText.textContent = `${a} ${op} ${b}`;
           result.textContent = answer;
           disableDec();
           disableBackspace();
           disableNum();
+          console.log(a, b, op, answer);
         }
       }
     }
@@ -139,7 +125,7 @@ function clear() {
   a = '';
   op = '';
   b = '';
-  result.textContent = '';
+  result.textContent = '0';
   displayText.textContent = '';
   enableDec();
   enableNum();
@@ -157,10 +143,6 @@ function backspace() {
     result.textContent = newText;
     b = newText;
   }
-}
-
-function expo(x, f) {
-  return Number.parseFloat(x).toExponential(f);
 }
 
 function disableDec() {

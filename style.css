@@ -18,27 +18,31 @@ body {
   background-color: #aaa;
   width: 350px;
   max-width: 350px;
-  height: 500px;
+  min-height: 500px;
   display: flex;
   flex-direction: column;
   gap: 1rem;
   border: 2px solid black;
   border-radius: 12px;
+  padding: 1rem;
+  position: absolute;
 }
 
 .display {
-  background-color: white;
-  border: 1px solid black;
-  height: 20%;
-  margin: 1em 1em 0 1em;
-  padding: 0.5em;
+  width: 92%;
   position: relative;
+  left: 4%;
+  background-color: white;
+  border: 2px solid black;
+  padding: 0.5em;
+  text-align: right;
+  word-wrap: break-word;
+  word-break: break-all;
 }
 
 .display-text {
   font-size: 1.5rem;
-  position: absolute;
-  right: 5%;
+  min-height: 32px;
 }
 
 .edit {
@@ -123,7 +127,5 @@ button {
   margin-top: 0.2em;
   font-size: 2.5rem;
   font-weight: bold;
-  position: absolute;
-  right: 5%;
-  bottom: 10%;
+  min-height: 48px;
 }
