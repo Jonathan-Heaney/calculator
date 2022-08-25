@@ -53,31 +53,23 @@ let answer;
 
 for (let i = 0; i < mainButtons.length; i++) {
   mainButtons[i].addEventListener('click', function (e) {
-    // if (result.textContent.length >= 8) {
-    //   for (let i = 0; i < numberButtons.length; i++) {
-    //     numberButtons[i].disabled = true;
-    //   }
-    // }
     if (e.target.classList.contains('number-btn') && !op) {
       if (result.textContent.length >= 9) {
         a = a;
-        console.log(a);
       } else {
         a += e.target.textContent;
         result.textContent = a;
-        backspaceButton.disabled = false;
+        enableBackspace();
         if (result.textContent.includes('.')) {
-          decimalButton.disabled = true;
-        } else decimalButton.disabled = false;
+          disableDec();
+        } else enableDec();
       }
     } else if (!op && e.target.classList.contains('operator-btn')) {
       op = e.target.textContent;
       displayText.textContent = `${a} ${op}`;
-      decimalButton.disabled = false;
+      disableDec();
       result.textContent = '';
-      for (let i = 0; i < numberButtons.length; i++) {
-        numberButtons[i].disabled = false;
-      }
+      enableNum();
     } else if (
       (a || a === 0) &&
       op &&
@@ -89,35 +81,34 @@ for (let i = 0; i < mainButtons.length; i++) {
       } else {
         b += e.target.textContent;
         result.textContent = b;
-        backspaceButton.disabled = false;
+        enableBackspace();
         if (result.textContent.includes('.')) {
-          decimalButton.disabled = true;
-        } else decimalButton.disabled = false;
+          disableDec();
+        } else enableDec();
       }
     } else if (op && e.target.classList.contains('operator-btn') && !b) {
       op = e.target.textContent;
-      decimalButton.disabled = false;
-      for (let i = 0; i < numberButtons.length; i++) {
-        numberButtons[i].disabled = false;
-      }
+      enableDec();
+      enableNum();
     } else if (op && e.target.classList.contains('operator-btn')) {
       a = Number(a);
       b = Number(b);
-      for (let i = 0; i < numberButtons.length; i++) {
-        numberButtons[i].disabled = false;
-      }
+      enableNum();
       answer = operate(op, a, b);
       if (answer === 'No') {
         alert('Nice try, dum dum');
         clear();
       } else {
         answer = +answer.toFixed(10);
+        if (result.textContent.length > 10) {
+          answer = expo(answer, 2);
+        }
         result.textContent = answer;
         op = e.target.textContent;
         a = answer;
         b = '';
         displayText.textContent = `${a} ${op}`;
-        decimalButton.disabled = false;
+        enableDec();
       }
     } else if ((e.target.id = 'equals')) {
       if (a && b && op) {
@@ -130,13 +121,14 @@ for (let i = 0; i < mainButtons.length; i++) {
         } else {
           answer = +answer.toFixed(10);
           result.textContent = answer;
+          if (result.textContent.length > 10) {
+            answer = expo(answer, 2);
+          }
           displayText.textContent = `${a} ${op} ${b}`;
           result.textContent = answer;
-          decimalButton.disabled = true;
-          backspaceButton.disabled = true;
-          for (let i = 0; i < numberButtons.length; i++) {
-            numberButtons[i].disabled = true;
-          }
+          disableDec();
+          disableBackspace();
+          disableNum();
         }
       }
     }
@@ -149,10 +141,8 @@ function clear() {
   b = '';
   result.textContent = '';
   displayText.textContent = '';
-  decimalButton.disabled = false;
-  for (let i = 0; i < numberButtons.length; i++) {
-    numberButtons[i].disabled = false;
-  }
+  enableDec();
+  enableNum();
 }
 
 function backspace() {
@@ -171,4 +161,32 @@ function backspace() {
 
 function expo(x, f) {
   return Number.parseFloat(x).toExponential(f);
+}
+
+function disableDec() {
+  decimalButton.disabled = true;
+}
+
+function enableDec() {
+  decimalButton.disabled = false;
+}
+
+function disableBackspace() {
+  backspaceButton.disabled = true;
+}
+
+function enableBackspace() {
+  backspaceButton.disabled = false;
+}
+
+function disableNum() {
+  for (let i = 0; i < numberButtons.length; i++) {
+    numberButtons[i].disabled = true;
+  }
+}
+
+function enableNum() {
+  for (let i = 0; i < numberButtons.length; i++) {
+    numberButtons[i].disabled = false;
+  }
 }
