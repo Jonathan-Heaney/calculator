@@ -141,7 +141,7 @@ function showResultEquals(e) {
 }
 
 function alertDivideZero() {
-  alert('Nice try, dum dum');
+  alert("You can't divide by 0!");
   clear();
 }
 
