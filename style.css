@@ -8,6 +8,7 @@
 }
 
 body {
+  background-color: #ffcccb;
   height: 100vh;
   display: flex;
   align-items: center;
@@ -15,7 +16,7 @@ body {
 }
 
 .container {
-  background-color: #aaa;
+  background-color: #b0bec5;
   width: 350px;
   max-width: 350px;
   min-height: 500px;
